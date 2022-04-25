@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>졸업선물</title>
+  </head>
+  <body>
+    <script>
+      // 제일 비싼거 반값하고 물건값 + 배송값 한거 정렬
+      // 최대한 많은 학생이니까 값이 저렴한 순으로 차례대로 더하면서 예산과 비교
+      // 근데 가장 비싼 물건에 가기전에 예산이 부족하면 반값 쿠폰을 앞 학생에게 땡겨서 사용해볼 수 도 있음
+      // 따라서 합산가격으로 정렬하면서 배열 형태 유지하고 상황에 따라 반값 쿠폰을 적용해야함
+      function solution(m, product) {
+        const students = product.length;
+        let maxStudent = 0;
+        let sum = 0;
+        // 합이 작은 순으로 정렬
+        const sortProducts = product.sort(
+          (a, b) => a[0] + a[1] - (b[0] + b[1])
+        );
+
+        for (let i = 0; i < sortProducts.length; i++) {
+          const productSum = sortProducts[i].reduce((a, b) => a + b, 0);
+          sum += productSum;
+          maxStudent++;
+          // 예산 초과시 더해준 학생수, 가격을 빼주고 반값 할인 쿠폰을 적용한다.
+          if (sum > m) {
+            sum -= productSum;
+            maxStudent--;
+            const saleProductSum = sortProducts[i].reduce(
+              (a, b) => a / 2 + b,
+              0
+            );
+            // 할인 가격이 예산안에 들어오면 이것은 최선인 상태이므로 다시 학생수를 올려주고 break를 해준다.
+            // 만약 false라면 for문이 다시 진행된다. => 반값은 물건에만 적용되므로 합계가 더 비싸더라도 물건값이 많이 차지하고 있는 경우가 있을테니
+            // ex. (2, 8) (12, 2) 이면 반값 적용시 합계가 9, 8이 되므로 오히려 뒤에 있는 조합이 더 싸다.
+            if (sum + saleProductSum <= m) {
+              maxStudent++;
+              break;
+            }
+          }
+        }
+        return maxStudent;
+      }
+
+      let arr = [
+        [6, 6],
+        [2, 2],
+        [4, 3],
+        [4, 5],
+        [10, 3],
+      ];
+      console.log(solution(28, arr));
+    </script>
+  </body>
+</html>
