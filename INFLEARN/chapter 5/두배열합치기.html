@@ -1,0 +1,40 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>두 배열 합치기</title>
+  </head>
+  <body>
+    <script>
+      // 두 배열 무지성으로 합쳐서 sort쓰면 쉽지만.. 투포인터를 이용하는 문제
+      // 포인터 변수 2개 만들고 2개 배열을 동시에 비교하면서 빈 배열에 순서대로 담기
+      function solution(arr1, arr2) {
+        const sumArr = [];
+        let pt1 = 0;
+        let pt2 = 0;
+        // arr1 요소를 넣을때 마다 pt1증가, arr2 요소 넣을때 마다 pt2 증가
+        // 포인터가 끝까지 돌면 가장 큰수를 넣어서 다른 배열이 다 돌 수 있도록 해줌
+        while (sumArr.length !== arr1.length + arr2.length) {
+          let arr1Num = pt1 < arr1.length ? arr1[pt1] : Number.MAX_SAFE_INTEGER;
+          let arr2Num = pt2 < arr2.length ? arr2[pt2] : Number.MAX_SAFE_INTEGER;
+          if (arr1Num < arr2Num) {
+            sumArr.push(arr1Num);
+            pt1++;
+          } else if (arr1Num > arr2Num) {
+            sumArr.push(arr2Num);
+            pt2++;
+          } else if (arr1Num === arr2Num) {
+            sumArr.push(arr1Num);
+            sumArr.push(arr2Num);
+            pt1++;
+            pt2++;
+          }
+        }
+        return sumArr;
+      }
+
+      let a = [1, 3, 5];
+      let b = [2, 3, 6, 7, 9];
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
