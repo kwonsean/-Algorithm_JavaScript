@@ -13,6 +13,8 @@
         let pt2 = 0;
         // arr1 요소를 넣을때 마다 pt1증가, arr2 요소 넣을때 마다 pt2 증가
         // 포인터가 끝까지 돌면 가장 큰수를 넣어서 다른 배열이 다 돌 수 있도록 해줌
+        // 강의에서는 한 배열이 끝나면 나머지 배열을 비교 없이 바로 sumArr에 넣어준다.
+        // 따라서 while문 조건에 포인터와 배열 길이를 비교하는 문을 넣음
         while (sumArr.length !== arr1.length + arr2.length) {
           let arr1Num = pt1 < arr1.length ? arr1[pt1] : Number.MAX_SAFE_INTEGER;
           let arr2Num = pt2 < arr2.length ? arr2[pt2] : Number.MAX_SAFE_INTEGER;
