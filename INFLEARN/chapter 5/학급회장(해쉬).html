@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 요소 정렬 후 다른값이 나오는 곳에서 비교하기, 각 요소별 filter해서 길이 비교, 정규식 등이 떠오르는데 해쉬는 뭘까요
+      // 우선 정렬을 한뒤 중복을 제거하여 후보들을 파악하고 후보의 첫 인덱스와 마지막 인덱스 값을 비교하여 값이 가장 큰 사람을 leader에 넣는다.
+      // 해결은 했지만 원하는 해결방법은 아닐듯
+      function solution(s) {
+        let leader;
+        let max = 0;
+        const sortS = [...s].sort();
+        const person = new Set(sortS);
+
+        for (let i of person) {
+          if (max < sortS.lastIndexOf(i) - sortS.indexOf(i)) {
+            max = sortS.lastIndexOf(i) - sortS.indexOf(i);
+            leader = i;
+          }
+        }
+
+        return leader;
+      }
+
+      let str = "BACBACCACCBDEDE";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
