@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 이전 문제와 유사하게 반대로 풀이 + 요소 하나도 허용한다는 점 주의
+      function solution(m, arr) {
+        let answer = (pt1 = pt2 = 0);
+        let sum = 0;
+        while (pt1 !== arr.length) {
+          let sum = arr[pt1];
+          pt2 = pt1 + 1;
+          for (let i = pt2; i < arr.length + 1; i++) {
+            if (sum <= m) {
+              answer++;
+            } else if (sum > m) {
+              break;
+            }
+            sum += arr[i];
+          }
+          pt1++;
+        }
+
+        return answer;
+      }
+
+      let a = [1, 3, 1, 2, 3];
+      console.log(solution(5, a));
+    </script>
+  </body>
+</html>
