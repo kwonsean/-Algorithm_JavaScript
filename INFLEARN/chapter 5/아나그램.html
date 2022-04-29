@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 역시 MAP을 사용하면 쉬워보이는데
+      // 두 개의 map을 어떻게 비교할 것인지? => for문 돌면서 같은 키값에 따른 value가 같은지 비교
+      // 근데 이렇게 2개의 Map을 반복문돌면서 각각 노가다로 만들어주는게 맞나 싶다.
+      function solution(str1, str2) {
+        const Amap = new Map();
+        const Bmap = new Map();
+        if (str1.length !== str2.length) return "NO";
+
+        for (let i = 0; i < str1.length; i++) {
+          Amap.set(str1[i], Amap.has(str1[i]) ? Amap.get(str1[i]) + 1 : 1);
+          Bmap.set(str2[i], Bmap.has(str2[i]) ? Bmap.get(str2[i]) + 1 : 1);
+        }
+
+        for (let [key, value] of Amap) {
+          if (Amap.get(key) !== Bmap.get(key)) return "NO";
+        }
+        return "YES";
+      }
+      // abaCC;
+      // Caaab;
+      let a = "AbaAeCe";
+      let b = "baeeACA";
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
