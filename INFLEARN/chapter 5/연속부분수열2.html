@@ -9,18 +9,17 @@
       function solution(m, arr) {
         let answer = (pt1 = pt2 = 0);
         let sum = 0;
-        while (pt1 !== arr.length) {
-          let sum = arr[pt1];
-          pt2 = pt1 + 1;
-          for (let i = pt2; i < arr.length + 1; i++) {
-            if (sum <= m) {
-              answer++;
-            } else if (sum > m) {
-              break;
+        for (pt2; pt2 < arr.length; pt2++) {
+          sum += arr[pt2];
+          if (sum <= m) {
+            answer += pt2 - pt1 + 1;
+          } else {
+            while (sum > m) {
+              sum -= arr[pt1++];
             }
-            sum += arr[i];
+            // 다시 5 이하가 된거니 그때 갯수를 더해줌
+            answer += pt2 - pt1 + 1;
           }
-          pt1++;
         }
 
         return answer;
