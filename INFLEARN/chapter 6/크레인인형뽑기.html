@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 라인 위치를 보고 0이 아닌 수를 stack에 담음 기존 값은 0으로 변경
+      // 담고나서 값이 연속으로 동일하면 pop
+      // 끝까지 0이면 아무것도 담지 않음
+      function solution(board, moves) {
+        let answer = 0;
+        const stack = [];
+
+        moves.forEach((move) => {
+          for (let i = 0; i < board.length; i++) {
+            if (board[i][move - 1] === 0) continue;
+            else {
+              // 방금 넣은거랑 지금 넣을거 비교 해서 같으면 pop
+              // 다르면 그냥 넣기
+              if (stack[stack.length - 1] === board[i][move - 1]) {
+                stack.pop();
+                answer += 2;
+              } else {
+                stack.push(board[i][move - 1]);
+              }
+              // 같던 다르던 초기화
+              board[i][move - 1] = 0;
+              break;
+            }
+          }
+        });
+        return answer;
+      }
+
+      let a = [
+        [0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 3],
+        [0, 2, 5, 0, 1],
+        [4, 2, 4, 4, 2],
+        [3, 5, 1, 3, 1],
+      ];
+
+      let b = [1, 5, 3, 5, 1, 2, 1, 4];
+      console.log(solution(a, b));
+    </script>
+  </body>
+</html>
