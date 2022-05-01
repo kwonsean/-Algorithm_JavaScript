@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 끝과 끝의 막대를 찾아서 그 사이에 있는 레이저의 갯수 + 1이 나누어지는 갯수
+      // 가장 긴 막대부터 차례대로 지워나가면 될 듯
+      // 끝과 끝을 어떻게 찾음? (무지성 index로 찾음)
+      // 두개의 stack 사용 과연 옳은가.. index 비교 및 slice 사용.. 이게 맞는가
+      function solution(s) {
+        let answer = 0;
+        const lazerStack = [];
+        const finalStack = [];
+
+        // lazer요소를 'L'로 변환
+        for (let x of s) {
+          lazerStack.push(x);
+          if (x === ")" && lazerStack[lazerStack.length - 2] === "(") {
+            lazerStack.pop();
+            lazerStack.pop();
+            lazerStack.push("L");
+          }
+        }
+
+        // 또 스택을 이용하여 '('과 ')'이 만나게 되면 index를 이용하여 그 사이 배열을 slice로 떼어와 L의 갯수 파악
+        lazerStack.forEach((item, idx) => {
+          if (item === "(") {
+            finalStack.push([item, idx]);
+          } else if (item === ")") {
+            answer +=
+              lazerStack
+                .slice(finalStack.pop()[1], idx + 1)
+                .filter((i) => i === "L").length + 1;
+          }
+        });
+
+        return answer;
+      }
+
+      let a = "()(((()())(())()))(())";
+      console.log(solution(a));
+    </script>
+  </body>
+</html>
