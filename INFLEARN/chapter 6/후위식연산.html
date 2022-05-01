@@ -5,15 +5,11 @@
   </head>
   <body>
     <script>
-      function pop2push1(stack, nextLevel) {
-        stack.pop();
-        stack.pop();
-        stack.push(nextLevel);
-      }
-
       // 넣으면서 바로바로 숫자가 가능하면 숫자형으로 변경
-      // 연산자를 만나면 숫자값 2개를 빼서 계산하고 그 값을 다시 push
-
+      // 연산자를 만나면 숫자값 2개를 빼서 계산하고 그 값을 다시 push (어차피 구하는 값이 결과값이기 때문에)
+      // 만약 식을 구하는 거라면 괄호 처리해야되고 복잡할 듯 (그냥 +, -에만 처리하면 될지도 모르겠음)
+      // pop을 따로 처리하는 것 보다 pop한 값을 그대로 사용하는게 덜 복잡함
+      // 어차피 후행연산자이기 때문에 연산자를 만난다면 무조건 앞에 숫자가 있음 (없으면 잘못된 후행연산자)
       function solution(s) {
         const stack = [];
         for (let x of s) {
@@ -21,29 +17,27 @@
           if (Number(x)) {
             stack.push(Number(x));
           } else {
+            const rightNum = stack.pop();
+            const leftNum = stack.pop();
             switch (x) {
               case "+":
-                nextLevel = stack[stack.length - 2] + stack[stack.length - 1];
-                pop2push1(stack, nextLevel);
+                stack.push(leftNum + rightNum);
                 break;
               case "-":
-                nextLevel = stack[stack.length - 2] - stack[stack.length - 1];
-                pop2push1(stack, nextLevel);
+                stack.push(leftNum - rightNum);
                 break;
               case "*":
-                nextLevel = stack[stack.length - 2] * stack[stack.length - 1];
-                pop2push1(stack, nextLevel);
+                stack.push(leftNum * rightNum);
                 break;
               case "/":
-                nextLevel = stack[stack.length - 2] / stack[stack.length - 1];
-                pop2push1(stack, nextLevel);
+                stack.push(leftNum / rightNum);
                 break;
               default:
                 break;
             }
           }
         }
-        return stack[0];
+        return stack.pop();
       }
 
       let str = "352+*9-";
