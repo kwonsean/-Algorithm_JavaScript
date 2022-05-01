@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // t값을 map에 담아두고 s를 쪼개면서 비교해 나간다.
+      // s는 투포인터를 사용하고 아나그램 조건이 깨지거나 충족하면 포인터 이동
+      // 투포인터보단 window Slide 느낌으로 비교할 t의 길이 만큼 폭을 가지고 한칸씩 이동하면서 비교
+      function checkMap(tMap, sMap) {
+        if ([...tMap.keys()].length !== [...sMap.keys()].length) return false;
+
+        for (let [key, value] of tMap) {
+          if (tMap.get(key) !== sMap.get(key)) return false;
+        }
+        return true;
+      }
+
+      function solution(s, t) {
+        let answer = 0;
+        const tMap = new Map();
+        for (let x of t) {
+          tMap.set(x, tMap.has(x) ? tMap.get(x) + 1 : 1);
+        }
+        let tMapLength = [...tMap.values()].reduce((a, b) => a + b);
+
+        for (let lpt = 0; lpt <= s.length - tMapLength; lpt++) {
+          if (!tMap.has(s[lpt])) {
+            console.log("Didn' have ", s[lpt]);
+            continue;
+          }
+          const sMap = new Map();
+          for (let rpt = lpt; rpt < lpt + tMapLength; rpt++) {
+            if (!tMap.has(s[rpt])) break;
+            sMap.set(s[rpt], sMap.has(s[rpt]) ? sMap.get(s[rpt]) + 1 : 1);
+          }
+
+          if (checkMap(tMap, sMap)) {
+            console.log(sMap);
+            answer++;
+          }
+        }
+
+        return answer;
+      }
+
+      let a = "bacaAacba";
+      let b = "abc";
+      console.log("Answer!", solution(a, b));
+    </script>
+  </body>
+</html>
