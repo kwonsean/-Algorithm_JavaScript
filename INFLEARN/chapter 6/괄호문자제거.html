@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 이전 문제 응용
+      // 계속 push하다가 ) 만나면 (을 찾아서 거기까지 pop해서 없애고 최종적으로 남은 stack 리턴
+      function solution(s) {
+        let stack = [];
+        for (let x of s) {
+          stack.push(x);
+          if (x === ")") {
+            const startPoint = stack.lastIndexOf("(");
+            stack.splice(startPoint, stack.length);
+          }
+        }
+        return stack.join("");
+      }
+
+      let str = "(A(BC)D)EF(G(H)(IJ)K)LM(N)";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
