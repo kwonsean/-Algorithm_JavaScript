@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function pop2push1(stack, nextLevel) {
+        stack.pop();
+        stack.pop();
+        stack.push(nextLevel);
+      }
+
+      // 넣으면서 바로바로 숫자가 가능하면 숫자형으로 변경
+      // 연산자를 만나면 숫자값 2개를 빼서 계산하고 그 값을 다시 push
+
+      function solution(s) {
+        const stack = [];
+        for (let x of s) {
+          let nextLevel = "";
+          if (Number(x)) {
+            stack.push(Number(x));
+          } else {
+            switch (x) {
+              case "+":
+                nextLevel = stack[stack.length - 2] + stack[stack.length - 1];
+                pop2push1(stack, nextLevel);
+                break;
+              case "-":
+                nextLevel = stack[stack.length - 2] - stack[stack.length - 1];
+                pop2push1(stack, nextLevel);
+                break;
+              case "*":
+                nextLevel = stack[stack.length - 2] * stack[stack.length - 1];
+                pop2push1(stack, nextLevel);
+                break;
+              case "/":
+                nextLevel = stack[stack.length - 2] / stack[stack.length - 1];
+                pop2push1(stack, nextLevel);
+                break;
+              default:
+                break;
+            }
+          }
+        }
+        return stack[0];
+      }
+
+      let str = "352+*9-";
+      console.log(solution(str));
+    </script>
+  </body>
+</html>
