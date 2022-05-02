@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 참 특이한 방법이구만요
+      // 요소의 번호를 기억해야 하고 동시에 k 번째를 세고 있어야 함
+      // 큐를 이용.. 어차피 1명 남을때 까지이기 때문에 1명 남을때 까지 무한으로 돌면서 k 번째 빼주고 1로 초기화
+      // 1로 초기화도 안하고 나머지를 이용함 그런데 shift를 사용하는 것은 과연 옳은가.. (성능 별로 안좋은걸로 알고 있음)
+      function solution(n, k) {
+        const princes = [...Array(n)].map((_, i) => i + 1);
+        let num = 1;
+        while (princes.length !== 1) {
+          let now = princes.shift();
+          if (num % k !== 0) {
+            princes.push(now);
+          }
+          num++;
+        }
+        return princes[0];
+      }
+
+      console.log(solution(8, 3));
+    </script>
+  </body>
+</html>
