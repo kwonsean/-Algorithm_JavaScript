@@ -8,16 +8,17 @@
       // 선택 정렬 => 최솟값 찾아서 앞에 두고 다시 그 뒤부터 정렬 반복
       // 최솟값 찾아서 빼내고 나머지 배열에서 최솟값 찾기 반복
       // 성능때문에 sort를 안쓰는 것일텐데 이중 for문 + splice 연계는 과연 옳은가.. 일단 검색해서 본 이론과 같은 형태로 구현해 봄
+      // 이중 for문 사용 OK. 하지만 최소값 찾아서 값 바꾸는 건 훨~씬 간단하게 구현 가능 (값도 신경 안쓰고 index만 가지고 컨트롤)
       function solution(arr) {
         const answer = [...arr];
 
         for (let i = 0; i < answer.length; i++) {
-          let min = Number.MAX_SAFE_INTEGER;
-          for (let j = i; j < answer.length; j++) {
-            min = Math.min(answer[j], min);
+          let idx = i;
+          for (let j = i + 1; j < answer.length; j++) {
+            if (answer[j] < answer[idx]) idx = j;
           }
-          const minIdx = answer.indexOf(min);
-          answer.splice(i, 0, answer.splice(minIdx, 1)[0]);
+          // 가장 작은 값의 인덱스를 idx에 담아 두고 맨 처음 인덱스 값과 교체 해준다. (무지성 splice 연계를 이런식으로..)
+          [answer[i], answer[idx]] = [answer[idx], answer[i]];
         }
         return answer;
       }
