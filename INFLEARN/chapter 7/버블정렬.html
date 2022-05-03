@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 버블정렬 => 양옆의 값을 비교하여 순서를 정렬한다. 1회 정렬을 하게 되면 가장 끝에 가장 큰수가 정렬된다.
+      function solution(arr) {
+        const answer = [...arr];
+        for (let i = 0; i < answer.length; i++) {
+          // 끝에는 정렬이 되니깐 i만큼 빼줘서 굳이 확인하지 않도록 함
+          for (let j = 1; j < answer.length - i; j++) {
+            if (answer[j - 1] > answer[j]) [answer[j - 1], answer[j]] = [answer[j], answer[j - 1]];
+          }
+        }
+        return answer;
+      }
+
+      let arr = [13, 5, 11, 7, 23, 15];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
