@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 선택 정렬 => 최솟값 찾아서 앞에 두고 다시 그 뒤부터 정렬 반복
+      // 최솟값 찾아서 빼내고 나머지 배열에서 최솟값 찾기 반복
+      // 성능때문에 sort를 안쓰는 것일텐데 이중 for문 + splice 연계는 과연 옳은가.. 일단 검색해서 본 이론과 같은 형태로 구현해 봄
+      function solution(arr) {
+        const answer = [...arr];
+
+        for (let i = 0; i < answer.length; i++) {
+          let min = Number.MAX_SAFE_INTEGER;
+          for (let j = i; j < answer.length; j++) {
+            min = Math.min(answer[j], min);
+          }
+          const minIdx = answer.indexOf(min);
+          answer.splice(i, 0, answer.splice(minIdx, 1)[0]);
+        }
+        return answer;
+      }
+
+      let arr = [13, 5, 11, 7, 23, 15];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
