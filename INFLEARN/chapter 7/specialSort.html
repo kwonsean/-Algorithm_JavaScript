@@ -8,6 +8,7 @@
       // 입력 받는 값을 음수면 처음부터 채우고 양수면 음수 다음 인덱스부터 차례대로 채움
       // 이때 값의 크기는 신경 X => 기존 배열의 순서 유지
       // 풀기는 했지만 정렬보다는 편법을 쓴 느낌
+      /*
       function solution(arr) {
         const answer = new Array(arr.length);
         let minusPt = 0;
@@ -17,6 +18,18 @@
           else answer[plusPt++] = x;
         }
         return answer;
+      }
+      */
+
+      // 버블 정렬을 사용하는데 이때 자리를 바꾸는 기준이 부호를 보고 판단
+      // 왼쪽이 양수 오른쪽이 음수인 경우 자리 교체
+      function solution(arr) {
+        for (let i = 0; i < arr.length; i++) {
+          for (let j = 0; j < arr.length - 1; j++) {
+            if (arr[j] > 0 && arr[j + 1] < 0) [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+          }
+        }
+        return arr;
       }
 
       let arr = [1, 2, 3, -3, -2, 5, 6, -6];
