@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 삽입정렬 => 이미 정렬된 부분을 보고 새로운 값을 적절한 위치에 삽입하며 정렬
+      // 앞 쪽 값보다는 크고 뒤쪽 값보다는 작을때 까지 포인터를 옮기다가 삽입 splice?
+      // splice가 성능이 좋진 않겠지만 원하는 위치에 요소를 삽입하는 방법을 splice이외는 모름..ㅠ
+      function solution(arr) {
+        const answer = [];
+        for (let x of arr) {
+          for (let i = 0; i < arr.length; i++) {
+            if (answer.length === 0) {
+              answer.push(x);
+              break;
+            }
+
+            if (answer[i] > x) {
+              answer.splice(i, 0, x);
+              break;
+            }
+          }
+        }
+        return answer;
+      }
+
+      let arr = [11, 7, 5, 6, 10, 9];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
