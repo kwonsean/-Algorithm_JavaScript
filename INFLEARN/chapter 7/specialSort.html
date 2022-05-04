@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 입력 받는 값을 음수면 처음부터 채우고 양수면 음수 다음 인덱스부터 차례대로 채움
+      // 이때 값의 크기는 신경 X => 기존 배열의 순서 유지
+      // 풀기는 했지만 정렬보다는 편법을 쓴 느낌
+      function solution(arr) {
+        const answer = new Array(arr.length);
+        let minusPt = 0;
+        let plusPt = arr.filter((i) => i < 0).length;
+        for (let x of arr) {
+          if (x < 0) answer[minusPt++] = x;
+          else answer[plusPt++] = x;
+        }
+        return answer;
+      }
+
+      let arr = [1, 2, 3, -3, -2, 5, 6, -6];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
