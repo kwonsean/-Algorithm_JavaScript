@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 캐시에 없으면 가장 앞에 추가하고 있으면 가장 앞 자리로 옮기고 나머지는 뒤로 미룬다.
+      // push, shift, splice 없이 바꿔치기 느낌으로 풀어보자
+      function solution(size, arr) {
+        let answer = Array.from({ length: size }, () => 0);
+        for (let i = 0; i < arr.length; i++) {
+          let pt = size - 1;
+          let targetIdx = answer.indexOf(arr[i]);
+          // 값이 없으면 뒤로 쭉쭉 밀어주고 맨 앞에 새로운 값 넣어줌
+          if (targetIdx === -1) {
+            console.log("값 없음");
+            while (pt !== 0) {
+              if (answer[pt] + answer[pt - 1] !== 0) {
+                answer[pt] = answer[pt - 1];
+              }
+              pt--;
+            }
+            answer[0] = arr[i];
+          } else {
+            console.log("값 있음");
+            // 값이 있으면 그 자리부터 앞으로 자리 바꿔줌
+            while (targetIdx !== 0) {
+              [answer[targetIdx - 1], answer[targetIdx]] = [
+                answer[targetIdx],
+                answer[targetIdx - 1],
+              ];
+              targetIdx--;
+            }
+          }
+          console.log(answer);
+        }
+        return answer;
+      }
+
+      let arr = [1, 2, 3, 2, 6, 2, 3, 5, 7];
+      console.log(solution(5, arr));
+    </script>
+  </body>
+</html>
