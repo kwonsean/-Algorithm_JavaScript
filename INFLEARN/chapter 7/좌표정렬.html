@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // x축이 똑같지 않으면 그냥 정렬하고 똑같으면 y축 값도 비교해서 정렬한다.
+      function solution(arr) {
+        arr.sort((a, b) => {
+          let diff = a[0] - b[0];
+          if (diff !== 0) return diff;
+          else return a[1] - b[1];
+        });
+        return arr;
+      }
+
+      let arr = [
+        [2, 7],
+        [1, 3],
+        [1, 2],
+        [2, 5],
+        [3, 6],
+      ];
+      console.log(solution(arr));
+    </script>
+  </body>
+</html>
