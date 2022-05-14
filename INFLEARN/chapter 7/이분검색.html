@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 그냥 정렬해서 찾으면 참 쉽지만 이분검색이란것을 이용해보자
+      // 개념을 봤을땐 일단 정렬을 한뒤 가운데 값을 확인하여 절반씩 검색할 데이터를 줄여 나가는 방법
+      function solution(target, arr) {
+        let answer;
+        const sortArr = arr.sort((a, b) => a - b);
+        console.log(sortArr);
+        let searchedTarget;
+        let leftPt = 0;
+        let rightPt = arr.length;
+        // 절반 index 값을 넣고 target과 크기 비교를 한뒤 target이 더 크면 왼쪽 포인터를 땡기고 target이 더 작으면 오른쪽 포인터를 땡기면서 검색 범위를 줄여 나간다.
+        // 생각보다 간단하게 구현이 되었는데 이 방법이 맞는지 확인 필요!
+        while (target !== searchedTarget) {
+          let searchIndex = parseInt((rightPt - leftPt) / 2);
+          searchedTarget = arr[searchIndex];
+          if (target > arr[searchIndex]) {
+            leftPt = searchIndex;
+          } else if (target < arr[searchIndex]) {
+            rightPt = searchIndex;
+          } else {
+            answer = searchIndex + 1; // 인덱스가 아닌 번호라서 1부터 시작함
+          }
+        }
+
+        return answer;
+      }
+
+      let arr = [23, 87, 65, 12, 57, 32, 99, 81];
+      console.log(solution(32, arr));
+    </script>
+  </body>
+</html>
