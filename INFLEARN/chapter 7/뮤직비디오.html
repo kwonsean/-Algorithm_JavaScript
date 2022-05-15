@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 용량의 범위를 지정해 둔뒤 이분 검색을 바탕으로 적절한 용량을 찾는다.
+      // 결정된 용량 => 노래 돌면서 확인 => 최대 CD 갯수보다 작으면 OK rPt 땡김, 크면 lPt 땡김
+      function count(songs, capacity) {}
+
+      function solution(m, songs) {
+        let answer;
+        let lPt = 1;
+        let rPt = songs.reduce((a, b) => a + b, 0);
+        let searchCapacity;
+        let count = 0;
+        while (lPt < rPt) {
+          searchCapacity = parseInt((rPt + lPt) / 2);
+          let cdCount = 1;
+          let sum = 0;
+
+          for (let i = 0; i < songs.length; i++) {
+            let temp = sum + songs[i];
+            if (temp > searchCapacity) {
+              cdCount++;
+              sum = songs[i];
+            } else sum += songs[i];
+          }
+
+          if (cdCount <= m) {
+            answer = searchCapacity;
+            rPt = searchCapacity - 1;
+          } else {
+            lPt = searchCapacity + 1;
+          }
+          console.log("용량:", searchCapacity, "CD수", cdCount);
+          console.log("lPt:", lPt, "rPt:", rPt);
+          console.log("현재답 : ", answer);
+        }
+        return answer;
+      }
+
+      let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      console.log(solution(3, arr));
+    </script>
+  </body>
+</html>
