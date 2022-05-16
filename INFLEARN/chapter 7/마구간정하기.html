@@ -9,25 +9,32 @@
       // 그렇게 쭉 돌면서 가장 큰 값을 출력
       // 계획은 ***SS -> **S*S ... SS*** 형태
       // 나오긴 나오는데 3마리 맞춤형 코드..
-      function count(stable, dist) {}
+      // 재도전 (이분 검색 적극 활용!)
+      // 거리를 중심으로 범위를 잡고 이분 검색을 진행한다. 이때 소를 배치할 수 있을때마다 배치하여 기준 값보다 크거나 같으면 통과
+      // => 이런 규칙을 한눈에 딱 알기가 어렵다.
+      function count(sortStable, dist) {
+        let horse = 1;
+        let endPoint = sortStable[0];
+        for (let x of sortStable) {
+          if (x - endPoint >= dist) {
+            horse++;
+            endPoint = x;
+          }
+        }
+        return horse;
+      }
       function solution(c, stable) {
         let answer = 0;
         let sortStable = stable.sort((a, b) => a - b);
         console.log(sortStable);
-        let horse = {};
-        Array.from({ length: 3 }).forEach((_, idx) => {
-          horse[`H${idx + 1}`] = idx;
-        });
-        console.log(horse);
-        while (horse.H1 !== sortStable.length - c) {
-          const H3toH2 = sortStable[horse.H3] - sortStable[horse.H2];
-          const H2toH1 = sortStable[horse.H2] - sortStable[horse.H1];
-          let diff = H3toH2 > H2toH1 ? H2toH1 : H3toH2;
-          answer = Math.max(answer, diff);
-          if (horse.H3 < sortStable.length - 1) horse.H3 += 1;
-          else if (horse.H2 < sortStable.length - 2) horse.H2 += 1;
-          else horse.H1 += 1;
-          console.log(horse);
+        let lPt = 1;
+        let rPt = sortStable[sortStable.length - 1];
+        while (lPt <= rPt) {
+          let dist = parseInt((rPt + lPt) / 2);
+          if (count(sortStable, dist) >= c) {
+            lPt = dist + 1;
+            answer = dist;
+          } else rPt = dist - 1;
         }
         return answer;
       }
