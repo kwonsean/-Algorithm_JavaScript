@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 입력받은 10진수를 2진수로 변경 재귀 함수 이용
+      // 2로 계속 나눈 나머지들을 순서대로 합침
+      function solution(n) {
+        let answer = "";
+        function DFS(num) {
+          const result = parseInt(num / 2);
+          const left = String(num % 2);
+          if (result === 0) {
+            answer += left;
+          } else {
+            DFS(result);
+            answer += left;
+          }
+        }
+        DFS(n);
+        return answer;
+      }
+
+      console.log(solution(11));
+    </script>
+  </body>
+</html>
