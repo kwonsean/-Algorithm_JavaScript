@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // for 문이 아닌 재귀 함수 이용 풀이
+      // 콜스택이 계속 싸이고 num === 0이 되면 return이 되며 쌓였던 console.log가 찍히게 된다.
+      // DFS(3) => DFS(2) => DFS(1) => DFS(0) => console.log(1) => console.log(2) => console.log(3)
+      function solution(n) {
+        // 재귀 함수 생성
+        function DFS(num) {
+          if (num === 0) return;
+          else {
+            DFS(num - 1);
+            console.log(num);
+          }
+        }
+
+        DFS(n);
+      }
+
+      solution(3);
+    </script>
+  </body>
+</html>
