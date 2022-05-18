@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 전위순회 : 부모요소가 먼저 출력되고 왼쪽, 오른쪽 자식 출력
+      // 중위순회 : 왼쪽 자식이 먼저 출력되고 부모, 오른쪽 자식 출력
+      // 후위순회 : 왼쪽 자식이 먼저 출력되고 오른쪽 자식이 출력 된 뒤 부모 출력
+      // 즉, 부모요소가 언제 출력되냐에 따라 전위, 중위, 후위로 나뉘어짐
+      // 부모 요소 : n
+      // 왼쪽 자식 : n * 2
+      // 오른쪽 자식 : n * 2 + 1
+      function solution(n) {
+        let answer = "";
+        function DFS(v) {
+          if (v > 7) return;
+          else {
+            answer += String(v) + " "; // 부모 요소 출력 =>  전위 순회
+            DFS(v * 2);
+            // answer += String(v) + " "; // 중위 순회
+            DFS(v * 2 + 1);
+            // answer += String(v) + " "; // 후위 순회
+          }
+        }
+        DFS(n);
+        return answer;
+      }
+
+      console.log(solution(1));
+    </script>
+  </body>
+</html>
+
+<!-- 전위 순회
+DFS(1) => 1출력 => DFS(2) => 2출력 => DFS(4) => 4출력 => DFS(8) => return => DFS(9) => return 
+=> DFS(4) 끝 => DFS(5) => 5출력 => DFS(10) => return => DFS(11) => return => DFS(5) 끝
+=> DFS(2) 끝 => DFS(3) => 3출력 => DFS(6) => 6출력 => DFS(12) => return => DFS(13) => return 
+=> DFS(6) 끝 => DFS(7) => 7출력 => DFS(14) => return => DFS(15) => return => DFS(3) 끝
+=> DFS(1) 끝
+-->
