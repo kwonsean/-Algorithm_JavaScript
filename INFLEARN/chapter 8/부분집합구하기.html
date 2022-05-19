@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 인덱스를 이용해서 값을 구하는 방법은 상상도 못했습니다.
+      function solution(n) {
+        let answer = [];
+        let checkArr = Array.from({ length: n + 1 }).map((item) => 0);
+
+        function DFS(L) {
+          if (L > n) {
+            console.log(checkArr);
+            let sum = "";
+            for (let i = 1; i < checkArr.length; i++) {
+              if (checkArr[i] === 1) sum += String(i);
+            }
+            if (sum !== "") answer.push(sum);
+            return;
+          } else {
+            checkArr[L] = 1;
+            DFS(L + 1);
+            checkArr[L] = 0;
+            DFS(L + 1);
+          }
+        }
+        DFS(1);
+        return answer;
+      }
+
+      console.log(solution(3));
+    </script>
+  </body>
+</html>
