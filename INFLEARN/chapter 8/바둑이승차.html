@@ -1,0 +1,66 @@
+<!-- <html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(c, arr) {
+        let answer = Number.MIN_SAFE_INTEGER;
+        let sum = 0;
+
+        function DFS(v) {
+          sum += arr[v];
+          console.log(sum);
+          if (sum > c) {
+            answer = Math.max(answer, sum - arr[v]);
+            sum = 0;
+          } else {
+            console.log(v);
+            DFS(v + 1);
+          }
+        }
+
+        DFS(0);
+        return answer;
+      }
+
+      let arr = [81, 58, 42, 33, 61];
+      console.log(solution(259, arr));
+    </script>
+  </body>
+</html> -->
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 값이 넘치면 그 값을 뺀 DFS로 다시 시도하는 형식으로 끝까지 도착하면 answer 값 비교하는 형식
+      function solution(c, arr) {
+        let answer = Number.MIN_SAFE_INTEGER;
+        let n = arr.length;
+        function DFS(L, sum) {
+          console.log("현재 index값 : ", L);
+          if (sum > c) {
+            console.log("넘침");
+            return;
+          }
+          if (L === n) {
+            answer = Math.max(answer, sum);
+            console.log(sum, "answer 업데이트");
+          } else {
+            DFS(L + 1, sum + arr[L]);
+            DFS(L + 1, sum);
+          }
+        }
+        DFS(0, 0);
+        return answer;
+      }
+
+      let arr = [81, 58, 42, 33, 61];
+      console.log(solution(259, arr));
+    </script>
+  </body>
+</html>
