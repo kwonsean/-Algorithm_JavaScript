@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 1부터 3(n)까지 숫자 카드 중 2개를 뽑는 경우의 수를 나열하고 총 경우의 수 까지 출력
+      // L은 뽑은 카드 수
+      // 처음에 0 개였다가 for문을 돌면서 1개 뽑으면 +1 2개가 되면 뽑아둔 카드 answer에 push
+      function solution(n, m) {
+        let answer = [];
+        let tmp = Array.from({ length: m }, () => 0);
+        let count = 0;
+        function DFS(L) {
+          if (L === m) {
+            answer.push(tmp.slice());
+          } else {
+            for (let i = 1; i <= n; i++) {
+              count++;
+              console.log(count, L, i);
+              tmp[L] = i;
+              DFS(L + 1);
+            }
+          }
+        }
+
+        DFS(0);
+        return answer;
+      }
+
+      console.log(solution(3, 2));
+    </script>
+  </body>
+</html>
