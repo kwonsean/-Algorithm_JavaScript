@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 동전들의 합이 딱 m이 되는 경우 중 최소 값을 리턴
+      function solution(m, arr) {
+        let answer = Number.MAX_SAFE_INTEGER;
+        let n = arr.length;
+        // L은 사용한 동전의 갯수 sum 은 동전들의 합
+        // 따라서 동전의 갯수가 최소값을 넘거나, 전체 합이 목표 값보다 크게 되면 굳이 더 진행할 필요 없음
+        function DFS(L, sum) {
+          if (L > answer) return;
+          if (sum > m) {
+            return;
+          } else if (sum === m) {
+            answer = Math.min(answer, L);
+          } else {
+            for (let i = 0; i < n; i++) {
+              DFS(L + 1, sum + arr[i]);
+            }
+          }
+        }
+        DFS(0, 0);
+        return answer;
+      }
+
+      let arr = [1, 2, 5];
+      console.log(solution(15, arr));
+    </script>
+  </body>
+</html>
