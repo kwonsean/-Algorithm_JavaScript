@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      function solution(m, arr) {
+        let answer = [];
+        let length = arr.length;
+        let ch = new Array(length).fill(true);
+        let tmp = [];
+
+        function DFS(L) {
+          if (L === m) {
+            answer.push([...tmp]);
+            // 마지막 요소가 false 라면 끝까지 조합을 한것이기 때문에 체크 배열 초기화를 해준다.
+            // 이때 맨 처음 뽑은 tmp 요소가 마지막 요소인 경우 두 조건이 true이면 모든 경우의 수가 끝이 난 것이기 때문에 더이상 초기화를 하지 않는다.
+            if (!ch[length - 1] && tmp[0] !== arr[length - 1]) {
+              ch.fill(true);
+            }
+          } else {
+            for (let i = 0; i < length; i++) {
+              if (ch[i]) {
+                tmp[L] = arr[i];
+                ch[i] = false;
+                DFS(L + 1);
+              } else {
+                continue;
+              }
+            }
+          }
+        }
+
+        DFS(0);
+        return answer;
+      }
+
+      let arr = [3, 6, 9];
+      console.log(solution(2, arr));
+    </script>
+  </body>
+</html>
