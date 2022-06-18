@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>출력결과</title>
+  </head>
+  <body>
+    <script>
+      // 5C3 => 4C2 + 4C3 공식을 이용
+      // r값이 0이되거나 n과 r이 모두 같은 경우에는 1을 리턴하는 것으로 재귀 끝
+      // 1씩 야금야금 더해서 값을 구함
+      // 값이 커지면 성능에 문제가 있으므로 이미 n값과 r값의 계산값을 2차원 배열에 저장하여 사용
+      // 메모 2차원 배열은 n,r 값을 그대로 넣어서 사용하기 위해 1씩 더해줌
+
+      function solution(n, r) {
+        let answer;
+        // const memoArr = new Array(n + 1).fill(new Array(r + 1).fill(0));
+        // 값은 모양의 배열이 생성되는데 결과는 다름..
+        const memoArr = Array.from(Array(n + 1), () => Array(r + 1).fill(0));
+
+        function DFS(n, r) {
+          if (memoArr[n][r] !== 0) return memoArr[n][r];
+          if (n === r || r === 0) return 1;
+          else {
+            return (memoArr[n][r] = DFS(n - 1, r - 1) + DFS(n - 1, r));
+          }
+        }
+
+        answer = DFS(n, r);
+
+        return answer;
+      }
+
+      console.log(solution(33, 19));
+    </script>
+  </body>
+</html>
